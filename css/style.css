@@ -1071,3 +1071,449 @@ h1, h2, h3 {
   .header-extra .btn-label { display: none; }
   .section-head { align-items: flex-start; }
 }
+
+/* ============================================
+   Footer — Kontakt & Socials (auf jeder Seite)
+   ============================================ */
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+}
+.footer-contact > a {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  transition: color 0.3s var(--ease);
+}
+.footer-contact > a:hover { color: var(--accent); }
+.footer-contact .social-row { margin-top: 0; gap: 10px; }
+.footer-contact .social-row a { width: 32px; height: 32px; }
+.footer-contact .social-row svg { width: 15px; height: 15px; }
+
+/* ============================================
+   Bildergalerie (Auswahl durch den Künstler)
+   ============================================ */
+
+.gallery__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px 32px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.gallery__hint { font-size: 0.85rem; color: var(--text-dimmer); }
+.gallery__summary { font-size: 0.88rem; color: var(--text-dim); }
+.gallery__summary strong { color: var(--accent); font-weight: 600; }
+.gallery__clear {
+  margin-left: 8px;
+  font-size: 0.78rem;
+  color: var(--text-dimmer);
+  text-decoration: underline;
+}
+.gallery__clear:hover { color: var(--text); }
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.gallery__tile {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s var(--ease);
+}
+.gallery__tile.is-fav { border-color: var(--accent); }
+
+.gallery__open { display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.gallery__open img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.gallery__tile:hover .gallery__open img { transform: scale(1.04); }
+
+.gallery__num {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  background: rgba(22, 22, 22, 0.78);
+  pointer-events: none;
+}
+
+.gallery__fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  background: rgba(22, 22, 22, 0.72);
+  border: 1px solid var(--border-strong);
+  transition: all 0.3s var(--ease);
+}
+.gallery__fav:hover { border-color: var(--accent); color: var(--accent); }
+.gallery__tile.is-fav .gallery__fav { background: var(--accent); border-color: var(--accent); color: #fff; }
+.gallery__tile.is-fav .gallery__fav path { fill: currentColor; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 10, 10, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 72px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox__figure { display: flex; flex-direction: column; align-items: center; gap: 12px; max-height: 100%; }
+.lightbox__figure img { max-height: calc(100vh - 150px); max-width: 100%; width: auto; object-fit: contain; }
+.lightbox figcaption { font-size: 0.82rem; color: var(--text-dim); letter-spacing: 0.06em; }
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  color: var(--text);
+  font-size: 2.4rem;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s var(--ease);
+}
+.lightbox__close:hover,
+.lightbox__nav:hover { color: var(--accent); }
+.lightbox__close { top: 12px; right: 16px; }
+.lightbox__nav { top: 50%; transform: translateY(-50%); }
+.lightbox__nav--prev { left: 10px; }
+.lightbox__nav--next { right: 10px; }
+.lightbox__fav {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  transition: all 0.3s var(--ease);
+}
+.lightbox__fav:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox__fav.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.lightbox__fav.is-on path { fill: currentColor; }
+
+@media (max-width: 640px) {
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .lightbox { padding: 56px 12px 64px; }
+  .lightbox__nav { top: auto; bottom: 8px; transform: none; }
+}
+
+/* ============================================
+   YouTube-Einbettungen
+   ============================================ */
+
+.yt-embed {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  transition: border-color 0.3s var(--ease);
+}
+.yt-embed:hover { border-color: var(--border-strong); }
+.yt-embed__poster,
+.yt-embed iframe {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+}
+.yt-embed__poster img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.3s var(--ease); }
+.yt-embed__poster:hover img { opacity: 1; }
+.yt-embed__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(22, 22, 22, 0.7);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease);
+}
+.yt-embed__poster:hover .yt-embed__play { background: var(--accent); border-color: var(--accent); transform: translate(-50%, -50%) scale(1.08); }
+.yt-embed__meta { padding: 14px 18px 16px; }
+.yt-embed__meta strong { display: block; font-size: 0.92rem; font-weight: 600; }
+.yt-embed__meta span { display: block; font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+.yt-embed__meta span:empty { display: none; }
+
+/* ============================================
+   3D-Buch (Poesie)
+   ============================================ */
+
+.book-scene {
+  position: relative;
+  perspective: 1400px;
+  padding-bottom: 28px;
+}
+.book-3d {
+  --w: 220px;
+  --h: 320px;
+  --d: 46px;
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  transform-style: preserve-3d;
+  transform: rotateX(-6deg) rotateY(-32deg);
+  animation: bookSwing 12s ease-in-out infinite alternate;
+}
+.book-scene:hover .book-3d { animation-play-state: paused; }
+
+@keyframes bookSwing {
+  from { transform: rotateX(-6deg) rotateY(-38deg); }
+  to   { transform: rotateX(-4deg) rotateY(32deg); }
+}
+
+.book-3d__face { position: absolute; backface-visibility: hidden; }
+
+.book-3d__front,
+.book-3d__back {
+  inset: 0;
+  background: #1a1a1a;
+}
+.book-3d__front {
+  transform: translateZ(calc(var(--d) / 2));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 2px 6px 6px 2px;
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.45) 0, rgba(255,255,255,0.07) 5%, transparent 9%),
+    radial-gradient(ellipse 90% 60% at 50% 30%, rgba(205,102,0,0.28), transparent 70%),
+    #1a1a1a;
+}
+.book-3d__front::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(205, 102, 0, 0.55);
+  pointer-events: none;
+}
+.book-3d__title {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: 34px;
+}
+.book-3d__sub { font-size: 0.7rem; line-height: 1.5; color: var(--text-dim); letter-spacing: 0.04em; }
+.book-3d__author { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; }
+
+.book-3d__back { transform: rotateY(180deg) translateZ(calc(var(--d) / 2)); }
+
+.book-3d__spine {
+  width: var(--d);
+  height: 100%;
+  left: calc(var(--d) / -2);
+  transform: rotateY(-90deg);
+  background: linear-gradient(90deg, #121212, #232323 50%, #121212);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  writing-mode: vertical-rl;
+}
+
+.book-3d__pages {
+  width: var(--d);
+  height: calc(100% - 8px);
+  top: 4px;
+  left: calc(var(--w) - var(--d) / 2);
+  transform: rotateY(90deg);
+  background: repeating-linear-gradient(0deg, #e9e2d3 0, #e9e2d3 2px, #cfc7b6 3px);
+}
+.book-3d__top,
+.book-3d__bottom {
+  width: calc(var(--w) - 6px);
+  height: var(--d);
+  left: 0;
+  background: #d9d2c1;
+}
+.book-3d__top { top: calc(var(--d) / -2 + 4px); transform: rotateX(90deg); }
+.book-3d__bottom { bottom: calc(var(--d) / -2 + 4px); transform: rotateX(-90deg); }
+
+.book-3d__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 240px;
+  height: 26px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55), transparent 70%);
+  pointer-events: none;
+}
+.hero__figure--book { align-items: center; justify-content: center; padding-bottom: 140px; }
+
+@media (max-width: 640px) {
+  .hero__figure--book { padding-bottom: 0; position: relative; min-height: 400px; }
+}
+
+/* ============================================
+   Startseite: wechselndes Hero-Bild
+   ============================================ */
+
+.hero-slider { position: absolute; inset: 0; z-index: 1; }
+.hero-slider__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  opacity: 0;
+  transition: opacity 1s var(--ease);
+}
+.hero-slider__img.is-active { opacity: 1; }
+.hero-slider__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 28%, transparent 55%, rgba(0,0,0,0.6) 100%);
+}
+.hero-slider__ui {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hero-slider__count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 6px 12px;
+  background: rgba(22, 22, 22, 0.7);
+}
+.hero-slider__controls { display: flex; gap: 8px; }
+.hero-slider__btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: rgba(22, 22, 22, 0.7);
+  border: 1px solid var(--border-strong);
+  transition: all 0.3s var(--ease);
+}
+.hero-slider__btn:hover { border-color: var(--accent); color: var(--accent); }
+.hero-slider__fav.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.hero-slider__fav.is-on path { fill: currentColor; }
+.hero-slider__favs {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 3;
+  max-width: 45%;
+  font-size: 0.78rem;
+  color: var(--text);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+}
+.hero-slider__favs:empty { display: none; }
+@media (max-width: 640px) {
+  .hero-slider { min-height: 420px; }
+  .hero-slider__favs { max-width: 90%; }
+}
+
+.show-flyer {
+  width: 100%;
+  max-width: 440px;
+  justify-self: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+}
+@media (max-width: 900px) {
+  .crowdwork-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Poesie: 3D-Buch links neben dem Titel */
+.poesie-intro { display: flex; align-items: center; gap: clamp(28px, 4vw, 56px); }
+.poesie-intro .book-scene { flex: none; padding: 0 12px 24px 24px; }
+.poesie-intro .book-3d { --w: 150px; --h: 218px; --d: 32px; }
+.poesie-intro .book-3d__front { padding: 18px 14px; }
+.poesie-intro .book-3d__title { font-size: 2.3rem; margin-top: 22px; }
+.poesie-intro .book-3d__sub { font-size: 0.55rem; }
+.poesie-intro .book-3d__author { font-size: 0.55rem; }
+.poesie-intro .book-3d__spine { font-size: 0.75rem; }
+.poesie-intro .book-3d__shadow { width: 170px; }
+@media (max-width: 640px) {
+  .poesie-intro { flex-direction: column; align-items: flex-start; }
+}
+.poesie-intro .book-scene { order: 2; padding: 0 24px 24px 12px; }
+@media (max-width: 640px) {
+  .poesie-intro .book-scene { order: 0; padding: 0 12px 24px 24px; }
+}
+
+/* Über mich: Bilder-Galerie statt Foto-Platzhalter */
+.about-slider {
+  position: relative;
+  inset: auto;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+  background: #1c1c1c;
+}
+.about-slider .hero-slider__favs { max-width: 70%; }
+
+/* Pressebilder-Karussell: echte Fotos */
+.magnetic-carousel__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  pointer-events: none;
+}
+.magnetic-carousel__bar::after {
+  background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, transparent 45%);
+}
+.magnetic-carousel__index { position: absolute; left: 0; right: 0; bottom: 10px; color: var(--text); }
