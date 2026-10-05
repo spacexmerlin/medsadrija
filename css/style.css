@@ -1517,3 +1517,4 @@ h1, h2, h3 {
   background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, transparent 45%);
 }
 .magnetic-carousel__index { position: absolute; left: 0; right: 0; bottom: 10px; color: var(--text); }
+.show-flyer--wide { max-width: 560px; justify-self: stretch; }
