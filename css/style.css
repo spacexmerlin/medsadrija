@@ -1531,3 +1531,24 @@ h1, h2, h3 {
   .book-feature { grid-template-columns: 1fr; }
   .book-scene--feature { justify-self: center; }
 }
+
+/* Startseite: Bild über die ganze Breite (full bleed) */
+.hero--fullbleed .hero__visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero--fullbleed .hero__visual::before,
+.hero--fullbleed .hero__visual::after { display: none; }
+.hero--fullbleed .hero-slider__img { object-position: center 22%; }
+.hero--fullbleed .hero-slider__shade {
+  background:
+    linear-gradient(90deg, rgba(14,14,14,0.88) 0%, rgba(14,14,14,0.55) 38%, rgba(14,14,14,0.05) 70%),
+    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 25%, transparent 60%, rgba(0,0,0,0.55) 100%);
+}
+.hero--fullbleed .hero__panel { z-index: 3; }
+@media (max-width: 1080px) {
+  .hero--fullbleed .hero-slider__shade {
+    background: linear-gradient(180deg, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.75) 100%);
+  }
+}
