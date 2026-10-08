@@ -4,7 +4,11 @@
   const root = document.querySelector('[data-hero-slider]');
   if (!root) return;
 
-  const COUNT = 17;
+  const IMAGES = root.dataset.images
+    ? root.dataset.images.split(',').map(Number)
+    : Array.from({ length: 17 }, (_, k) => k + 1);
+  const COUNT = IMAGES.length;
+  const SINGLE = COUNT === 1;
   const INTERVAL = 4500;
   const KEY = 'medsadrija-favoriten-' + (root.dataset.heroSlider || 'home');
   const pad = (n) => String(n).padStart(2, '0');
@@ -16,13 +20,13 @@
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...favs])); } catch (e) { /* egal */ } };
 
   let slides = '';
-  for (let n = 1; n <= COUNT; n++) {
-    slides += '<img class="hero-slider__img" src="' + src(n) + '" alt="Bild ' + n + '"' + (n > 1 ? ' loading="lazy"' : '') + ' decoding="async">';
-  }
+  IMAGES.forEach((n, idx) => {
+    slides += '<img class="hero-slider__img" src="' + src(n) + '" alt="Bild ' + n + '"' + (idx > 0 ? ' loading="lazy"' : '') + ' decoding="async">';
+  });
   root.innerHTML =
     slides +
     '<div class="hero-slider__shade"></div>' +
-    '<div class="hero-slider__ui">' +
+    (SINGLE ? '' : '<div class="hero-slider__ui">' +
       '<span class="hero-slider__count"></span>' +
       '<div class="hero-slider__controls">' +
         '<button class="hero-slider__btn" data-act="prev" aria-label="Vorheriges Bild">&#8249;</button>' +
@@ -30,9 +34,10 @@
         '<button class="hero-slider__btn hero-slider__fav" data-act="fav" aria-label="Als Favorit markieren" aria-pressed="false">' + HEART + '</button>' +
       '</div>' +
     '</div>' +
-    '<p class="hero-slider__favs" aria-live="polite"></p>';
+    '<p class="hero-slider__favs" aria-live="polite"></p>');
 
   const imgs = root.querySelectorAll('.hero-slider__img');
+  if (SINGLE) { imgs[0].classList.add('is-active'); return; }
   const count = root.querySelector('.hero-slider__count');
   const favBtn = root.querySelector('.hero-slider__fav');
   const favList = root.querySelector('.hero-slider__favs');
@@ -42,7 +47,7 @@
   const render = () => {
     imgs.forEach((img, k) => img.classList.toggle('is-active', k === i));
     count.textContent = pad(i + 1) + ' / ' + COUNT;
-    const on = favs.has(i + 1);
+    const on = favs.has(IMAGES[i]);
     favBtn.classList.toggle('is-on', on);
     favBtn.setAttribute('aria-pressed', String(on));
     const list = [...favs].sort((a, b) => a - b);
@@ -63,7 +68,7 @@
     if (act === 'prev') go(-1);
     if (act === 'next') go(1);
     if (act === 'fav') {
-      const n = i + 1;
+      const n = IMAGES[i];
       if (favs.has(n)) favs.delete(n); else favs.add(n);
       save();
       render();
