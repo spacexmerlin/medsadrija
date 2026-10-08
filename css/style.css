@@ -1522,12 +1522,11 @@ h1, h2, h3 {
 /* Poesie: 3D-Buch rechts neben dem Gedichtband-Text */
 .book-feature {
   display: grid;
-  grid-template-columns: minmax(0, 56ch) auto;
-  justify-content: start;
+  grid-template-columns: minmax(0, 56ch) 1fr;
   gap: clamp(40px, 8vw, 120px);
   align-items: center;
 }
-.book-scene--feature { padding: 20px 28px 36px; }
+.book-scene--feature { padding: 20px 28px 36px; justify-self: end; margin-right: clamp(0px, 4vw, 64px); }
 @media (max-width: 640px) {
   .book-feature { grid-template-columns: 1fr; }
   .book-scene--feature { justify-self: center; }
