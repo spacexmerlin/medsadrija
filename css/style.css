@@ -1553,20 +1553,5 @@ h1, h2, h3 {
   }
 }
 
-/* Home: Termine blenden sich bei Hover/Fokus über „Alle Termine ansehen" ein */
-.hero__dates {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 0.45s var(--ease), opacity 0.35s var(--ease), margin 0.45s var(--ease);
-}
-.hero__dates > * { overflow: hidden; min-height: 0; }
-.hero__panel--dates:hover .hero__dates,
-.hero__panel--dates:focus-within .hero__dates {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  margin-bottom: 20px;
-}
-@media (hover: none), (max-width: 640px) {
-  .hero__dates { grid-template-rows: 1fr; opacity: 1; margin-bottom: 20px; }
-}
+/* Home: nächste Termine direkt sichtbar über „Alle Termine ansehen" */
+.hero__dates { margin-bottom: 20px; }
