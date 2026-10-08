@@ -1518,3 +1518,10 @@ h1, h2, h3 {
 }
 .magnetic-carousel__index { position: absolute; left: 0; right: 0; bottom: 10px; color: var(--text); }
 .show-flyer--wide { max-width: 560px; justify-self: stretch; }
+
+/* Poesie: 3D-Buch neben dem Gedichtband-Text */
+.book-feature { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+.book-scene--feature { justify-self: center; padding: 20px 28px 36px; }
+@media (max-width: 900px) {
+  .book-feature { grid-template-columns: 1fr; }
+}
